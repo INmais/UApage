@@ -7,7 +7,7 @@ navbar:
   - text: Data
     href: data.html
   - text: Tools
-    href: tools.html
+    href: Tools.html
   right:
     - icon: ion-social-github
       href: https://github.com/INmais
