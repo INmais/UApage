@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Tools.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Urban Analytics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="urbanintro.html">Urban</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+<li>
+  <a href="Tools.html">Tools</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/INmais">
+    <span class="ion ion-social-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/energy_build">
+    <span class="ion ion-social-twitter"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="tools" class="section level2">
+<h2>Tools</h2>
+<div id="data-languages" class="section level3">
+<h3>Data Languages</h3>
+<p><a href="https://www.python.org/">Python</a></p>
+<p><a href="https://www.r-project.org/">The R Project for Statistical Computing</a> or <a href="https://www.rstudio.com/">R Studio</a></p>
+<p><a href="https://anaconda.org/">Anaconda</a> (namely if using python to install most libraries)</p>
+</div>
+<div id="data-cleansing-and-extraction" class="section level3">
+<h3>Data Cleansing and Extraction</h3>
+<div id="unstructured-data" class="section level4">
+<h4>Unstructured data</h4>
+<div id="r" class="section level5">
+<h5>R</h5>
+<p><a href="https://dplyr.tidyverse.org/">Tidy and dplyr</a></p>
+</div>
+<div id="python" class="section level5">
+<h5>Python</h5>
+<p><a href="https://pandas.pydata.org/">Pandas</a></p>
+<p><a href="http://scikit-learn.org/stable/index.html">scikit-learn</a></p>
+</div>
+<div id="other" class="section level5">
+<h5>Other</h5>
+<p><a href="http://openrefine.org/">OpenRefine</a></p>
+<p><a href="https://www.import.io/">import.io</a></p>
+<p><a href="https://tabula.technology/">Tabula</a> (extract tables from pdf)</p>
+<p><a href="https://regexr.com/">RegExr</a></p>
+</div>
+</div>
+</div>
+<div id="data-maps" class="section level3">
+<h3>Data Maps</h3>
+<p><a href="https://www.arcgis.com/index.html">ArcGIS</a></p>
+<p><a href="https://leafletjs.com/">Leaflet</a></p>
+<p><a href="https://carto.com/">Carto</a></p>
+<p><a href="https://www.openstreetmap.org/">Open StreetMap</a></p>
+</div>
+</div>
+<div id="data-visualisation" class="section level2">
+<h2>Data Visualisation</h2>
+<p><a href="https://dive.media.mit.edu/">DIVE</a></p>
+<p><a href="https://d3js.org/">3D.js</a> and <a href="https://d3plus.org/">3D Plus</a></p>
+<p><a href="https://processing.org/">Processing</a></p>
+<p><a href="https://coffeescript.org/">CoffeeScript</a></p>
+<p><a href="https://angularjs.org/">AngularJS</a></p>
+<p><a href="http://pyjs.org/">pyjs</a></p>
+<p><a href="http://www.brython.info">Brython</a></p>
+<p><a href="https://www.tableau.com/">Tableau</a></p>
+<p><a href="https://rawgraphs.io/">RAWgraphs</a></p>
+<p><a href="https://www.datawrapper.de/">Datawrapper</a></p>
+<div id="libraries" class="section level3">
+<h3>Libraries:</h3>
+<p>(Integration with Python)</p>
+<p><a href="https://matplotlib.org/">Matplotlib</a></p>
+<p><a href="https://plot.ly/python/">Plotly</a></p>
+<p><a href="https://pypi.org/project/geoplotlib/">Geoplotlib</a></p>
+<p><a href="https://seaborn.pydata.org/">Seaborn</a></p>
+<p><a href="http://ggplot.yhathq.com/">Ggplot</a></p>
+<p><a href="https://bokeh.pydata.org/en/">Bokeh</a></p>
+<p><a href="http://pygal.org/en/stable/">pygal</a></p>
+<p>(Integration with R)</p>
+<p><a href="https://cran.r-project.org/web/packages/ggplot2/index.html">GGplot2</a></p>
+<p><a href="https://plot.ly/r/">Plotly</a></p>
+</div>
+<div id="complex-systems" class="section level3">
+<h3>Complex Systems</h3>
+<p><a href="https://www.paballand.com/install-econgeo">EconGeo R Package</a></p>
+<p><a href="http://igraph.org/redirect.html">igraph</a></p>
+<p><a href="https://networkx.github.io/">networkX</a></p>
+</div>
+<div id="some-methods-examples-of-libraries-for-data-imputation" class="section level3">
+<h3>Some Methods (examples of libraries) for data imputation</h3>
+<p>List of R Packages</p>
+<p><a href="https://cran.r-project.org/web/packages/mice/index.html">MICE</a> (Multivariate Imputation by Chained Equations, Random Forest, CART etc).</p>
+<p>Methods:</p>
+<ul>
+<li><p>PMM (Predictive Mean Matching) – For numeric variables</p></li>
+<li><p>logreg(Logistic Regression) – For Binary Variables( with 2 levels)</p></li>
+<li><p>polyreg(Bayesian polytomous regression) – For Factor Variables (&gt;= 2 levels)</p></li>
+<li><p>Proportional odds model (ordered, &gt;= 2 levels)</p></li>
+</ul>
+<p><a href="https://cran.r-project.org/web/packages/Amelia/Amelia.pdf">Amelia</a> and <a href="https://gking.harvard.edu/files/gking/files/amelia_jss.pdf">Amelia II</a> multiple imputation (generate imputed data sets) to deal with missing values.It is enabled with bootstrap based EMB algorithm which makes it faster and robust to impute many variables including cross sectional, time series data etc.</p>
+<p>It makes the following assumptions:</p>
+<ul>
+<li>All variables in a data set have Multivariate Normal Distribution (MVN).</li>
+<li>It uses means and covariances to summarize data.</li>
+<li>Missing data is random in nature (Missing at Random)</li>
+</ul>
+<p><a href="https://cran.r-project.org/web/packages/missForest/missForest.pdf">missForest</a> (Random Forest, non parametric imputation)</p>
+<p><a href="https://cran.r-project.org/web/packages/Hmisc/index.html">Hmisc</a> (linear regression, logistic regression &amp; cox regression)</p>
+<p><a href="https://cran.r-project.org/web/packages/mi/mi.pdf">Mi</a> (Multiple imputation with diagnostics)</p>
+<p>Missing values (Rubin, Donald B. “Inference and Missing Data.” Biometrika, vol. 63, no. 3, 1976, pp. 581–592.JSTOR, JSTOR, www.jstor.org/stable/2335739)</p>
+</div>
+<div id="reproducible-research-tools" class="section level3">
+<h3>Reproducible Research Tools</h3>
+<div id="notebooks-and-repositories" class="section level4">
+<h4>Notebooks and repositories</h4>
+<p>R</p>
+<p><a href="https://rmarkdown.rstudio.com/">Markdown</a></p>
+<p>Python (and R):</p>
+<p><a href="http://jupyterlab.readthedocs.io/en/stable/">Jupyter</a></p>
+<p>Repos</p>
+<p><a href="https://getdkan.org/">DKAN Open Data Platform</a></p>
+<p><a href="https://github.com/">GitHub</a></p>
+</div>
+</div>
+</div>
+<div id="urban-analytics-related" class="section level2">
+<h2>Urban Analytics related</h2>
+<p><a href="https://energyplus.net/">Energy Plus</a></p>
+<p><a href="http://web.mit.edu/sustainabledesignlab/projects/umi/index.html">Urban Modeling Interface (umi)</a></p>
+<p><a href="http://www.urbansim.com/">UrbanSim</a></p>
+<div id="other-1" class="section level3">
+<h3>Other</h3>
+<p><a href="https://www.kaggle.com/">Kaggle</a></p>
+<p><a href="https://datastudio.withgoogle.com/">Google Analytics Solutions Data Studio</a></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
